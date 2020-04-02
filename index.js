@@ -13,13 +13,10 @@ app.use(bodyParser.json())
 const uri = process.env.DB_PATH;
 
 let client = new MongoClient(uri, { useNewUrlParser: true });
-// 31.4 start
 const users =  ['tom', 'Jerry', 'Nut', 'Multo'];
-// 31.4 end
 
 
 app.get('/products', (req, res) => {
-    // ========== 32.2  Start ==========   
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         const collection = client.db("onlineStore").collection("products");
@@ -34,23 +31,18 @@ app.get('/products', (req, res) => {
         });
         client.close();
     });
-    // ========== 32.2  End ========== 
 });
 
  
-// 31.4 start
 app.get('/users/:id', (req, res) => {
-    // show details
     const id = req.params.id;
     const name = users[id];
     res.send({id, name});
 })
-// 31.4 end
 
 // POST
 app.post('/addProduct', (req, res) =>{
     const product =  req.body;
-    // ========== 32.2  Start ==========   
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
         const collection = client.db("onlineStore").collection("products");
@@ -65,7 +57,6 @@ app.post('/addProduct', (req, res) =>{
         });
         client.close();
     });
-    // ========== 32.2  End ========== 
 
    
 })
